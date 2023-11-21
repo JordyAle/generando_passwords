@@ -11,14 +11,12 @@ def contiene_mayusculas(password)->bool:
     return False
 
 def contiene_simbolos(password)->bool:
-    for letra in password:
-        if letra in string.punctuation:
+    for letra in string.punctuation:
             return True
     return False
 
 def generar_password(longitud, tiene_simbolos, tiene_mayusculas)->str:
     combinacion = string.ascii_lowercase + string.digits
-    print(combinacion)
     #Simbolos
     if tiene_simbolos:
         combinacion += string.punctuation
@@ -29,11 +27,15 @@ def generar_password(longitud, tiene_simbolos, tiene_mayusculas)->str:
         
     longitud_combinacion = len(combinacion)
     
-    nuevo_password = ""
+    nuevo_password = ''
     
-   for _ in range (longitud):
-       
+    for _ in range (longitud):
+       nuevo_password += combinacion[secrets.randbelow(longitud_combinacion)]
+    return nuevo_password
 
 if __name__ == "__main__":
-    generar_password(longitud=2, tiene_simbolos=True, tiene_mayusculas=True)
-    tiene_mayusculas = True
+    for i in  range(1,6):
+        nuevo_pass = generar_password(longitud=10, tiene_simbolos=True, tiene_mayusculas= True)
+        especificaciones = (f'Mayusculas: {contiene_mayusculas(nuevo_pass)},'f'Simbolos: {contiene_simbolos(nuevo_pass)}')
+        
+        print(f'{i} -> {nuevo_pass} ({especificaciones})')
